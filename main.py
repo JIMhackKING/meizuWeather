@@ -59,9 +59,12 @@ def inquire_func(_id):
     main_pollutants = [("\nPM2.5",value["pm25"]["pm25"]),("PM10",value["pm25"]["pm10"]),("SO2",value["pm25"]["so2"]),("O3",value["pm25"]["o3"]),("CO",value["pm25"]["co"]),("NO2",value["pm25"]["no2"])]
     for i,n in main_pollutants:
         weatherReport.append(u"%s浓度：%s" %(i,n))
-
-    with open(u"weather report/%s %s.txt" %(value["city"],value["realtime"]["time"]),'w') as f:
-        f.write('\n'.join(weatherReport).encode("utf-8"))
+    
+    if not os.path.exist("weather report"):
+        os.mkdir("weather report")
+    else:
+        with open(u"weather report/%s %s.txt" %(value["city"],value["realtime"]["time"]),'w') as f:
+            f.write('\n'.join(weatherReport).encode("utf-8"))
 
 if __name__ == "__main__":
     #首先搜索到对应的城市,如果输入“all”就搜索全部城市
